@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="{ mobileMenuOpen: false, loaded: false }">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Luna</title>
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="images/lunabg.png" as="image">
+    <link rel="preload" href="style.css" as="style">
+    
+    <!-- Optimize font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syne:wght@800&display=swap&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    
+    <!-- Remove unused Font Awesome, replace with specific icons -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-<body>
+<body x-init="setTimeout(() => loaded = true, 500)">
+    <!-- Loading Screen -->
+    <div class="loading-screen" x-show="!loaded" x-transition>
+        <div class="loader"></div>
+    </div>
+
     <div class="noise"></div>
     <div class="gradient-sphere"></div>
     <div class="floating-icons">
@@ -33,7 +47,11 @@
             <div class="logo">
                 <img src="images/lunabg.png" alt="Luna" class="logo-img"/>
             </div>
-            <div class="nav-links">
+            <button class="mobile-menu-button md:hidden" @click="mobileMenuOpen = !mobileMenuOpen">
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" :class="{ 'mobile-menu-active': mobileMenuOpen }">
                 <a href="#" class="social-link"><img src="images/xlogo.png" alt="Twitter" class="social-icon"></a>
                 <a href="#" class="social-link"><img src="images/tg.png" alt="Telegram" class="social-icon"></a>
                 <a href="#" class="social-link"><img src="images/dex.webp" alt="Chart" class="social-icon"></a>
@@ -63,32 +81,32 @@
         <h2>1/1's</h2>
         <div class="collab-grid">
             <div class="collab-card">
-                <img src="images/2.JPG" alt="1/1" />
+                <img loading="lazy" src="images/2.JPG" alt="1/1" />
                 <h3>Cooker</h3>
                 <p>Trenches Cooker</p>
             </div>
             <div class="collab-card">
-                <img src="images/pattyice.JPG" alt="1/1" />
+                <img loading="lazy" src="images/pattyice.JPG" alt="1/1" />
                 <h3>PattyIce</h3>
                 <p>The Ice Man</p>
             </div>
             <div class="collab-card">
-                <img src="images/js.JPG" alt="1/1" />
+                <img loading="lazy" src="images/js.JPG" alt="1/1" />
                 <h3>js</h3>
                 <p>Owner Of Shocked</p>
             </div>
             <div class="collab-card">
-                <img src="images/pow.jpg" alt="1/1" />
+                <img loading="lazy" src="images/pow.jpg" alt="1/1" />
                 <h3>pow</h3>
                 <p>Filthiest degen of all time</p>
             </div>
             <div class="collab-card">
-                <img src="images/gake.JPG" alt="1/1" />
+                <img loading="lazy" src="images/gake.JPG" alt="1/1" />
                 <h3>Gake</h3>
                 <p>Trenches Master</p>
             </div>
             <div class="collab-card">
-                <img src="images/1.JPG" alt="1/1" />
+                <img loading="lazy" src="images/1.JPG" alt="1/1" />
                 <h3>Alon</h3>
                 <p>Pump.fun Founder</p>
             </div>

@@ -1,15 +1,40 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Critical CSS */
 :root {
   --primary: #1a1a1a;
   --accent: #808080;
   --accent-light: #a0a0a0;
   --text: #ffffff;
   --glass: rgba(255, 255, 255, 0.05);
+}
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: grid;
+    place-items: center;
+    z-index: 9999;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #333;
+    border-radius: 50%;
+    border-top-color: var(--accent);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* End of Critical CSS */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -486,4 +511,111 @@ footer p:hover {
     transform: translateY(-20px);
     filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.25));
   }
+}
+
+/* Mobile Menu */
+.mobile-menu-button {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    z-index: 100;
+}
+
+.mobile-menu-button span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--text);
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-button {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-links.mobile-menu-active {
+        right: 0;
+    }
+
+    .social-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .hero-image {
+        width: 250px;
+        height: 250px;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 8vw, 6rem);
+    }
+
+    .tagline {
+        font-size: 1.8rem;
+    }
+
+    .about {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .collab-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .collab-card {
+        padding: 1.5rem;
+    }
+
+    .collab-card img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .cta-content p {
+        font-size: 1.2rem;
+    }
+
+    .buy-button {
+        padding: 0.8rem 2.5rem;
+        font-size: 1.2rem;
+    }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .floating-icon,
+    .hero-image,
+    .gradient-sphere {
+        animation: none;
+    }
+}
+
+.optimize-gpu {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+[x-cloak] {
+    display: none;
 }
