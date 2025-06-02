@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ mobileMenuOpen: false, loaded: false }">
+<html lang="en" x-data="{ mobileMenuOpen: false, loaded: false, scrolled: false }" 
+      @scroll.window="scrolled = window.pageYOffset > 50"
+      x-init="setTimeout(() => loaded = true, 500); ScrollReveal().reveal('.reveal', { distance: '20px', duration: 1000, interval: 100 })">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,11 +15,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Syne:wght@800&display=swap&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css"/>
     
     <!-- Remove unused Font Awesome, replace with specific icons -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="cursor.js" defer></script>
 </head>
 <body x-init="setTimeout(() => loaded = true, 500)">
     <!-- Loading Screen -->
@@ -42,7 +49,7 @@
         </svg>
     </div>
 
-    <header>
+    <header :class="{ 'header-scrolled': scrolled }">
         <nav class="nav-container">
             <div class="logo">
                 <img src="images/lunabg.png" alt="Luna" class="logo-img"/>
@@ -59,14 +66,29 @@
         </nav>
     </header>
 
-    <section class="intro">
-        <h1>Luna</h1>
-        <p class="tagline">Luna the elegant cat</p>
-        <img src="images/lunabg.png" alt="Luna cat" class="hero-image"/>
+    <section class="intro" data-parallax="true">
+        <div class="hero-content">
+            <div class="text-reveal-container">
+                <h1 class="text-reveal" data-depth="2">Luna</h1>
+            </div>
+            <p class="tagline mega-text" data-depth="1">Luna the elegant cat</p>
+            <div class="hero-image-container">
+                <div class="hero-image-wrapper">
+                    <img src="images/lunabg.png" alt="Luna cat" class="hero-image"/>
+                    <div class="hero-glow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span class="mouse"></span>
+            <p>Scroll to explore</p>
+        </div>
     </section>
-
-    <section class="about">
-        <img src="images/lunabg.png" alt="Luna cat" />
+    
+    <section class="about reveal" data-tilt data-tilt-max="5">
+        <div class="magnetic-wrap">
+            <img src="images/lunabg.png" alt="Luna cat" class="magnetic-item" />
+        </div>
         <div>
             <h2>Luna</h2>
             <p>
@@ -78,34 +100,34 @@
     </section>
 
     <section class="collabs">
-        <h2>1/1's</h2>
+        <h2 class="reveal">1/1's</h2>
         <div class="collab-grid">
-            <div class="collab-card">
+            <div class="collab-card reveal">
                 <img loading="lazy" src="images/2.JPG" alt="1/1" />
                 <h3>Cooker</h3>
                 <p>Trenches Cooker</p>
             </div>
-            <div class="collab-card">
+            <div class="collab-card reveal">
                 <img loading="lazy" src="images/pattyice.JPG" alt="1/1" />
                 <h3>PattyIce</h3>
                 <p>The Ice Man</p>
             </div>
-            <div class="collab-card">
+            <div class="collab-card reveal">
                 <img loading="lazy" src="images/js.JPG" alt="1/1" />
                 <h3>js</h3>
                 <p>Owner Of Shocked</p>
             </div>
-            <div class="collab-card">
+            <div class="collab-card reveal">
                 <img loading="lazy" src="images/pow.jpg" alt="1/1" />
                 <h3>pow</h3>
                 <p>Filthiest degen of all time</p>
             </div>
-            <div class="collab-card">
+            <div class="collab-card reveal">
                 <img loading="lazy" src="images/gake.JPG" alt="1/1" />
                 <h3>Gake</h3>
                 <p>Trenches Master</p>
             </div>
-            <div class="collab-card">
+            <div class="collab-card reveal">
                 <img loading="lazy" src="images/1.JPG" alt="1/1" />
                 <h3>Alon</h3>
                 <p>Pump.fun Founder</p>
@@ -113,10 +135,10 @@
         </div>
     </section>
 
-    <section class="cta glow">
+    <section class="cta glow" data-tilt data-tilt-max="3">
         <div class="cta-content">
-            <p>Luna has just met you and wants to share her elegance</p>
-            <button class="buy-button">buy me</button>
+            <p data-tilt-speed="1000">Luna has just met you and wants to share her elegance</p>
+            <button class="buy-button" data-tilt-speed="1200">buy me</button>
         </div>
     </section>
 
